@@ -14,6 +14,18 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => LoginBloc(
+              authRepo: context.read<AuthRepository>(),
+            ),
+          )
+        ],
+        child: _loginForm(),
+      ),
+    );
+    return Scaffold(
       body: BlocProvider(
         create: (context) => LoginBloc(
           authRepo: context.read<AuthRepository>(),
@@ -55,10 +67,10 @@ class LoginView extends StatelessWidget {
           hintText: 'Username',
         ),
         validator: (value) =>
-        state.isValidUsername ? null : 'Username is too short',
+            state.isValidUsername ? null : 'Username is too short',
         onChanged: (value) => context.read<LoginBloc>().add(
-          LoginUsernameChanged(username: value),
-        ),
+              LoginUsernameChanged(username: value),
+            ),
       );
     });
   }
@@ -72,10 +84,10 @@ class LoginView extends StatelessWidget {
           hintText: 'Password',
         ),
         validator: (value) =>
-        state.isValidPassword ? null : 'Password is too short',
+            state.isValidPassword ? null : 'Password is too short',
         onChanged: (value) => context.read<LoginBloc>().add(
-          LoginPasswordChanged(password: value),
-        ),
+              LoginPasswordChanged(password: value),
+            ),
       );
     });
   }
@@ -85,13 +97,13 @@ class LoginView extends StatelessWidget {
       return state.formStatus is LoginOnLoading
           ? const CircularProgressIndicator()
           : ElevatedButton(
-        onPressed: () {
-          if (_formKey.currentState!.validate()) {
-            context.read<LoginBloc>().add(LoginSubmitted());
-          }
-        },
-        child: const Text('Login'),
-      );
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  context.read<LoginBloc>().add(LoginSubmitted());
+                }
+              },
+              child: const Text('Login'),
+            );
     });
   }
 

@@ -14,8 +14,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: RepositoryProvider(
-        create: (context) => AuthRepository(),
+      home: MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider(create: (context) => AuthRepository())
+        ],
         child: LoginView(),
       ),
     );
