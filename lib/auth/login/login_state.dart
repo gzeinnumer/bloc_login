@@ -1,4 +1,3 @@
-
 import 'package:bloc_login/auth/login/login_status.dart';
 
 class LoginState {

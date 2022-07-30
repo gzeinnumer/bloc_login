@@ -24,7 +24,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield state.copyWith(formStatus: LoginOnLoading());
 
       try {
-        await authRepo.login();
+        // await akan menggung dulu
+        // Detik 1 - 2
+        await authRepo.login(); // Detik 3
+        //Detik 4
+
+        bool res = await authRepo.loginB();
+        //res if true
+        //action
+        //res else false
+        //action
+
         yield state.copyWith(formStatus: LoginOnSuccess());
       } on Exception catch (e) {
         yield state.copyWith(formStatus: LoginOnFailed(e));
